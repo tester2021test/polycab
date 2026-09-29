@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Vivek Narkhede Wire Studio</title>
+<meta name="description" content="Offline Polycab wire pricing dashboard with discount, GST, quantity, per-metre cost, savings, graphical comparison and copy-ready quotation.">
+<meta name="keywords" content="Polycab wire calculator, Etira price, wire price comparison, 1 sq mm, 1.5 sq mm, GST calculator">
+<meta name="theme-color" content="#070b14">
+<style>
+:root{--bg:#070b14;--panel:#0d1422;--line:#202d42;--text:#f7f9fd;--muted:#8797ae;--green:#5ee5a0;--blue:#65b6ff;--gold:#ffc968;--shadow:0 22px 70px rgba(0,0,0,.38)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(850px 500px at -5% -10%,rgba(70,130,220,.20),transparent 60%),radial-gradient(700px 450px at 105% 0%,rgba(60,220,150,.11),transparent 60%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.app{max-width:1080px;margin:auto;padding:16px 13px 34px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:950;font-size:14px}.logo-mark{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,#65b6ff,#5ee5a0);color:#07100d;box-shadow:0 8px 25px rgba(76,190,160,.22)}
+.live{font-size:10px;font-weight:900;letter-spacing:.7px;color:#9db1c9;border:1px solid var(--line);background:#0b1220;border-radius:999px;padding:7px 9px}
+.hero{padding:25px 2px 18px}.eyebrow{font-size:10px;font-weight:950;color:#79d9ff;text-transform:uppercase;letter-spacing:1.6px}
+h1{font-size:clamp(32px,7vw,55px);line-height:.94;letter-spacing:-2.5px;margin:10px 0 11px;max-width:760px}.hero p{color:var(--muted);line-height:1.6;font-size:14px;max-width:740px;margin:0}
+.toolbar{display:grid;grid-template-columns:1.45fr .7fr .65fr;gap:10px;margin:12px 0}.panel{background:linear-gradient(145deg,rgba(18,28,45,.91),rgba(10,16,27,.94));border:1px solid var(--line);border-radius:21px;box-shadow:var(--shadow);padding:15px}
+.label{display:block;color:#8394ac;font-size:9px;font-weight:950;letter-spacing:1.1px;text-transform:uppercase;margin-bottom:7px}
+select,input{width:100%;border:1px solid #26354d;background:#080f1b;color:#fff;border-radius:13px;padding:13px;font:inherit;font-size:14px;outline:none}
+select:focus,input:focus{border-color:#559fe3;box-shadow:0 0 0 4px rgba(101,182,255,.08)}
+.dashboard{display:grid;grid-template-columns:1.25fr .75fr;gap:12px}.price-card{position:relative;overflow:hidden}.price-card:before{content:"";position:absolute;right:-100px;top:-110px;width:280px;height:280px;border-radius:50%;background:rgba(94,229,160,.08)}
+.product-title{font-size:22px;font-weight:950;letter-spacing:-.5px}.product-meta{font-size:11px;color:var(--muted);margin-top:4px}
+.size-pill{float:right;padding:7px 9px;border-radius:10px;background:rgba(101,182,255,.09);border:1px solid rgba(101,182,255,.2);color:#91ccff;font-size:10px;font-weight:950}
+.final-label{margin-top:20px;color:#7e91a8;font-size:9px;font-weight:950;letter-spacing:1.1px;text-transform:uppercase}.final{font-size:clamp(42px,10vw,68px);font-weight:950;letter-spacing:-3px;line-height:1;margin:5px 0;color:#7df0b0}.perm{font-size:12px;color:#b2c2d5}.perm b{color:#fff}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:17px}.metric{background:#0a111e;border:1px solid var(--line);border-radius:14px;padding:11px}.metric small{display:block;color:#71829a;font-size:9px;text-transform:uppercase;font-weight:900;letter-spacing:.7px}.metric strong{display:block;margin-top:5px;font-size:14px}.metric.green strong{color:var(--green)}.metric.gold strong{color:var(--gold)}
+.breakdown{margin-top:12px;border:1px solid var(--line);border-radius:15px;overflow:hidden}.br{display:flex;justify-content:space-between;padding:11px 12px;background:#09111d;border-bottom:1px solid var(--line);font-size:12px}.br:last-child{border-bottom:0}.br span{color:#8b9bb0}.br strong{font-weight:850}
+.chart-card h2,.side-card h2,.compare h2{font-size:14px;margin:0 0 13px;letter-spacing:-.2px}.bar-chart{display:grid;gap:11px}.bar-row{display:grid;grid-template-columns:95px 1fr 70px;align-items:center;gap:8px;font-size:10px}.bar-name{color:#aab8ca;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track{height:12px;background:#0a111c;border:1px solid #1e2b3e;border-radius:999px;overflow:hidden}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#5ee5a0,#65b6ff);transition:width .35s ease}.bar-value{text-align:right;font-weight:900}
+.ring{width:126px;height:126px;border-radius:50%;margin:8px auto 14px;display:grid;place-items:center;background:conic-gradient(var(--green) 45.5%,#172337 0);position:relative}.ring:after{content:"";width:94px;height:94px;border-radius:50%;background:#0d1422;position:absolute}.ring-inner{position:relative;z-index:2;text-align:center}.ring-inner b{display:block;font-size:23px}.ring-inner span{font-size:9px;color:#7889a0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}button{border:0;border-radius:13px;padding:12px;font:inherit;font-size:11px;font-weight:950;cursor:pointer;background:var(--green);color:#06120c}button.alt{background:#172338;color:#dce8f7;border:1px solid #293951}button.blue{background:#19344e;color:#9ed3ff;border:1px solid #2a5278}
+.quantity{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.qty-result{margin-top:0;padding:13px;border-radius:14px;background:#0a111d;border:1px solid var(--line)}.qty-result b{font-size:19px;color:#7df0b0}
+.compare{margin-top:12px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:15px}table{width:100%;border-collapse:collapse;min-width:760px;font-size:11px}th,td{padding:11px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{background:#09111d;color:#71839b;font-size:9px;text-transform:uppercase;letter-spacing:.6px}tr:last-child td{border-bottom:0}
+.notice{margin-top:11px;color:#687a92;font-size:9px;line-height:1.55}footer{text-align:center;color:#718197;font-size:10px;line-height:1.6;padding:25px 8px 3px}.credit{display:inline-flex;align-items:center;gap:7px;color:#8df0b8;font-weight:950;font-size:12px;margin-bottom:6px}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.toast{position:fixed;left:50%;bottom:18px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#eefbf4;color:#07140d;padding:11px 15px;border-radius:12px;font-size:11px;font-weight:900;box-shadow:0 15px 40px rgba(0,0,0,.35);transition:.22s;z-index:20}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:760px){.toolbar{grid-template-columns:1fr 1fr}.toolbar .wide{grid-column:1/-1}.dashboard{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:500px){.app{padding:11px 9px 28px}.toolbar{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr 1fr}.metrics .metric:last-child{grid-column:1/-1}.quantity{grid-template-columns:1fr}.bar-row{grid-template-columns:85px 1fr 63px}h1{font-size:35px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<div class="top"><div class="logo"><span class="logo-mark">₹</span><span>VIVEK NARKHEDE WIRE STUDIO</span></div><span class="live">OFFLINE • LIVE CALCULATION</span></div>
+<div class="hero"><div class="eyebrow">Polycab house wire pricing</div><h1>Know the price.<br>See the difference.</h1><p>Select a product and wire size to instantly see discounted price, GST, per-metre cost, savings, quantity cost and graphical comparison.</p></div>
+</header>
+
+<section class="toolbar">
+<div class="panel wide"><span class="label">Wire variant</span><select id="variant"></select></div>
+<div class="panel"><span class="label">Size</span><select id="size"><option value="1">1.0 SQ.MM</option><option value="1.5">1.5 SQ.MM</option></select></div>
+<div class="panel"><span class="label">Quantity</span><input id="qty" type="number" min="1" step="1" value="1" inputmode="numeric"></div>
+</section>
+
+<section class="dashboard">
+<div class="panel price-card">
+<span class="size-pill" id="sizePill"></span><div class="product-title" id="productTitle"></div><div class="product-meta" id="productMeta"></div>
+<div class="final-label">Final price including GST</div><div class="final" id="finalPrice"></div><div class="perm">Effective <b id="perMetre"></b> per metre</div>
+<div class="metrics"><div class="metric"><small>List price</small><strong id="lp"></strong></div><div class="metric gold"><small>Discount</small><strong id="discount"></strong></div><div class="metric green"><small>You save</small><strong id="saving"></strong></div></div>
+<div class="breakdown"><div class="br"><span>List Price (LP)</span><strong id="bLP"></strong></div><div class="br"><span>After 45.5% Discount</span><strong id="bNet"></strong></div><div class="br"><span>GST @ 18%</span><strong id="bGST"></strong></div><div class="br"><span>Final Price</span><strong id="bFinal"></strong></div></div>
+<div class="actions"><button onclick="copyQuote()">📋 Copy Price</button><button class="alt" onclick="copyWhatsApp()">💬 WhatsApp</button><button class="blue" onclick="shareQuote()">↗ Share</button><button class="alt" onclick="copyTable()">▣ Copy Comparison</button></div>
+<div class="quantity"><div class="panel" style="padding:12px"><span class="label">Pack quantity</span><div style="font-size:13px;font-weight:900" id="packInfo"></div></div><div class="qty-result"><span class="label">Total for selected quantity</span><b id="qtyTotal"></b></div></div>
+</div>
+
+<div style="display:grid;gap:12px">
+<div class="panel chart-card"><h2>Final price across variants</h2><div class="bar-chart" id="barChart"></div></div>
+<div class="panel side-card"><h2>Discount impact</h2><div class="ring"><div class="ring-inner"><b>45.5%</b><span>DISCOUNT</span></div></div><div style="text-align:center;color:#8596ad;font-size:10px">Applied before GST</div></div>
+</div>
+</section>
+
+<section class="panel compare"><h2>All variants — <span id="compareSize"></span></h2><div class="table-wrap"><table><thead><tr><th>Variant</th><th>LP</th><th>After Discount</th><th>GST</th><th>Final</th><th>/ Metre</th><th>Pack</th></tr></thead><tbody id="tableBody"></tbody></table></div><div class="notice">Calculation basis: LP × 54.5% = discounted value; discounted value × 18% = GST; discounted value + GST = final price. Figures are calculated from the supplied pricelist data.</div></section>
+<footer><div class="credit"><span class="dot"></span>Created by Vivek Narkhede</div><br>Offline calculator • Polycab wire pricing • 45.5% discount + 18% GST</footer>
+</div>
+<div class="toast" id="toast">Copied</div>
+
+<script>
+const products=[{"name":"Polycab Etira","short":"ETIRA","pack_m":90,"lp":{"1":2735,"1.5":4035},"type":"FR • Multistrand • PVC insulated","features":["Flame retardant","99.97% copper","Easy to pull inside conduits","REACH compliant","RoHS compliant"],"calc":{"1":{"lp":2735,"after":1490.575,"gst":268.3035,"final":1758.8785,"per_m":19.543094444444446,"saving":1244.425},"1.5":{"lp":4035,"after":2199.0750000000003,"gst":395.8335,"final":2594.9085000000005,"per_m":28.83231666666667,"saving":1835.9249999999997}}},{"name":"Polycab Primma","short":"PRIMMA","pack_m":90,"lp":{"1":2855,"1.5":4195},"type":"LF FR • Lead-free • Multistrand","features":["99.97% high-purity copper","Flame retardant","Lead-free PVC insulation","Rodent protection","Moisture resistant","High abrasion resistance","Easy to pull inside conduits","REACH compliant","RoHS compliant"],"calc":{"1":{"lp":2855,"after":1555.9750000000001,"gst":280.07550000000003,"final":1836.0505000000003,"per_m":20.400561111111113,"saving":1299.0249999999999},"1.5":{"lp":4195,"after":2286.275,"gst":411.5295,"final":2697.8045,"per_m":29.975605555555557,"saving":1908.725}}},{"name":"Polycab Optima+","short":"OPTIMA+","pack_m":90,"lp":{"1":3055,"1.5":4465},"type":"LF FR • Power-saving design • Multistrand","features":["Flame retardant","Lead-free PVC insulation","Rodent protection","Moisture resistant","High abrasion resistance","Energy-saving construction","REACH compliant","RoHS compliant","99.97% high-purity copper"],"calc":{"1":{"lp":3055,"after":1664.9750000000001,"gst":299.69550000000004,"final":1964.6705000000002,"per_m":21.829672222222225,"saving":1390.0249999999999},"1.5":{"lp":4465,"after":2433.425,"gst":438.0165,"final":2871.4415000000004,"per_m":31.90490555555556,"saving":2031.5749999999998}}},{"name":"Polycab Green Wire+","short":"GREEN WIRE+","pack_m":90,"lp":{"1":3275,"1.5":4775},"type":"HR FR-LSH LF • GreenPro certified house wire","features":["30% higher heat resistance","35% higher current carrying capacity","Low smoke & low toxic gases","Lead-free PVC insulation","Rodent protection","Moisture resistant","High abrasion resistance","Energy-saving construction","Eco-friendly wiring","REACH compliant","RoHS compliant","99.97% pure copper"],"calc":{"1":{"lp":3275,"after":1784.8750000000002,"gst":321.27750000000003,"final":2106.1525,"per_m":23.401694444444445,"saving":1490.1249999999998},"1.5":{"lp":4775,"after":2602.375,"gst":468.4275,"final":3070.8025,"per_m":34.12002777777778,"saving":2172.625}}},{"name":"Polycab Green Wire","short":"GREEN WIRE","pack_m":180,"lp":{"1":6550,"1.5":9550},"type":"PVC insulated • FR • Multistrand • 180 m pouch","features":["Low smoke during extreme fires","Low toxic fumes","Lead-free PVC insulation","High abrasion resistance","Rodent protection","FlameStop technology","REACH compliant","RoHS compliant","99.97% high-purity copper"],"calc":{"1":{"lp":6550,"after":3569.7500000000005,"gst":642.5550000000001,"final":4212.305,"per_m":23.401694444444445,"saving":2980.2499999999995},"1.5":{"lp":9550,"after":5204.75,"gst":936.855,"final":6141.605,"per_m":34.12002777777778,"saving":4345.25}}},{"name":"Polycab LF FR","short":"LF FR","pack_m":180,"lp":{"1":6110,"1.5":8930},"type":"LF FR • Lead-free • Multistrand • 180 m pouch","features":["FlameStop technology","Lead-free PVC insulation","Rodent protection","REACH compliant","RoHS compliant","99.97% high-purity copper"],"calc":{"1":{"lp":6110,"after":3329.9500000000003,"gst":599.3910000000001,"final":3929.3410000000003,"per_m":21.829672222222225,"saving":2780.0499999999997},"1.5":{"lp":8930,"after":4866.85,"gst":876.033,"final":5742.883000000001,"per_m":31.90490555555556,"saving":4063.1499999999996}}}];
+const variant=document.getElementById('variant'),size=document.getElementById('size'),qty=document.getElementById('qty');
+const $=id=>document.getElementById(id);
+products.forEach((p,i)=>{const o=document.createElement('option');o.value=i;o.textContent=p.name;variant.appendChild(o);});
+function money(n){return '₹'+Number(n).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function selected(){const p=products[+variant.value],s=size.value;return {p,s,c:p.calc[s]};}
+function render(){
+ const {p,s,c}=selected(),q=Math.max(1,+qty.value||1);
+ $('productTitle').textContent=p.name;$('productMeta').textContent=p.type+' • '+p.pack_m+' metre pack';$('sizePill').textContent=s+' SQ.MM';
+ $('finalPrice').textContent=money(c.final);$('perMetre').textContent=money(c.per_m);$('lp').textContent=money(c.lp);$('discount').textContent='-'+money(c.lp-c.after);$('saving').textContent=money(c.saving);
+ $('bLP').textContent=money(c.lp);$('bNet').textContent=money(c.after);$('bGST').textContent=money(c.gst);$('bFinal').textContent=money(c.final);
+ $('packInfo').textContent=p.pack_m+' metre pack × '+q;$('qtyTotal').textContent=money(c.final*q);$('compareSize').textContent=s+' SQ.MM';
+ renderBars(s);renderTable(s);
+}
+function renderBars(s){
+ const vals=products.map(p=>p.calc[s].final),max=Math.max(...vals);
+ $('barChart').innerHTML=products.map(p=>{const c=p.calc[s],pct=c.final/max*100;return '<div class="bar-row"><div class="bar-name">'+p.name.replace('Polycab ','')+'</div><div class="track"><div class="fill" style="width:'+pct+'%"></div></div><div class="bar-value">'+money(c.final)+'</div></div>';}).join('');
+}
+function renderTable(s){
+ $('tableBody').innerHTML=products.map(p=>{const c=p.calc[s];return '<tr><td>'+p.name+'</td><td>'+money(c.lp)+'</td><td>'+money(c.after)+'</td><td>'+money(c.gst)+'</td><td><b>'+money(c.final)+'</b></td><td>'+money(c.per_m)+'</td><td>'+p.pack_m+'m</td></tr>';}).join('');
+}
+function textQuote(){
+ const {p,s,c}=selected(),q=Math.max(1,+qty.value||1);
+ return p.name.toUpperCase()+' – '+s+' SQ.MM – '+p.pack_m+' METRE PACK\nCreated by Vivek Narkhede\n\nLP: '+money(c.lp)+'\nAfter 45.5% Discount: '+money(c.after)+'\nGST 18%: '+money(c.gst)+'\nFINAL PRICE: '+money(c.final)+'\nPer Metre: '+money(c.per_m)+'\nQuantity: '+q+' pack(s)\nTOTAL: '+money(c.final*q);
+}
+async function put(text){try{await navigator.clipboard.writeText(text);toast('Copied to clipboard');}catch(e){toast('Copy unavailable');}}
+function copyQuote(){put(textQuote());}
+function copyWhatsApp(){const {p,s,c}=selected(),q=Math.max(1,+qty.value||1);put('*'+p.name.toUpperCase()+' – '+s+' SQ.MM*\n'+p.pack_m+' METRE PACK\n\nCreated by Vivek Narkhede\n\nLP: '+money(c.lp)+'\nAfter 45.5% Discount: '+money(c.after)+'\nGST 18%: '+money(c.gst)+'\n*FINAL PRICE: '+money(c.final)+'*\nPer Metre: '+money(c.per_m)+'\nQuantity: '+q+' pack(s)\n*TOTAL: '+money(c.final*q)+'*');}
+function copyTable(){const s=size.value;put(['VARIANT | LP | AFTER DISCOUNT | GST | FINAL | PER METRE',...products.map(p=>{const c=p.calc[s];return p.name+' | '+money(c.lp)+' | '+money(c.after)+' | '+money(c.gst)+' | '+money(c.final)+' | '+money(c.per_m);})].join('\n'));}
+async function shareQuote(){if(navigator.share){try{await navigator.share({title:'Polycab Wire Price',text:textQuote()});return;}catch(e){}}put(textQuote());}
+function toast(t){const x=$('toast');x.textContent=t;x.classList.add('show');clearTimeout(window.__t);window.__t=setTimeout(()=>x.classList.remove('show'),1600);}
+variant.addEventListener('change',render);size.addEventListener('change',render);qty.addEventListener('input',render);render();
+</script>
+</body>
+</html>
